@@ -43,9 +43,8 @@ def searchData(AptNo="", firstName1="", lastName1="", firstName2="",lastName2=""
                parkingStallNo="", canopyStallNo="", Description=""):
     con = sqlite3.connect("Tenants.db")
     cur = con.cursor()
-    #cur.execute("SELECT * FROM Tenant WHERE firstName1 LIKE ?% ",(firstName1,))
-    cur.execute( "SELECT * FROM Tenantx WHERE AptNo=? OR firstName1=? OR lastName1=? OR firstName2=? OR lastName2=? OR phoneNo=? OR workPhoneNo=? OR parkingStallNo=? OR canopyStallNo=?  OR Description=? ",
-       (AptNo, firstName1, lastName1, firstName2,lastName2,phoneNo, workPhoneNo, parkingStallNo, canopyStallNo, Description))
+    cur.execute( "SELECT * FROM Tenantx WHERE AptNo=? COLLATE NOCASE OR firstName1=? COLLATE NOCASE OR lastName1=? COLLATE NOCASE OR firstName2=? COLLATE NOCASE OR lastName2=? COLLATE NOCASE",
+        (AptNo, firstName1, lastName1, firstName2, lastName2))
     rows = cur.fetchall()
     con.close()
     return rows
